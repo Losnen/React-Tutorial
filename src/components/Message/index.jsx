@@ -6,6 +6,24 @@ import styles from './message.css'
 class Message extends Component {
   constructor (props) {
     super(props)
+
+    this.state = {
+      pressFavorite: false,
+      pressRetweet: false
+    }
+
+    this.onPressFavorite = this.onPressFavorite.bind(this)
+    this.onPressRetweet = this.onPressRetweet.bind(this)
+  }
+
+  onPressFavorite () {
+    this.props.onFavorite()
+    this.setState({ pressFavorite: true })
+  }
+
+  onPressRetweet () {
+    this.props.onRetweet()
+    this.setState({ pressRetweet: true })
   }
 
   render () {
@@ -23,9 +41,22 @@ class Message extends Component {
         </div>
         <h3> {this.props.text} </h3>
         <div className={styles.buttons}>
-          <div className={styles.icon}><span className='fa fa-reply' /></div>
-          <div className={styles.icon}><span className='fa fa-retweet' /></div>
-          <div className={styles.icon}><span className='fa fa-star' /></div>
+          <div className={styles.icon}>
+            <span className='fa fa-reply' /></div>
+          <div
+            className={(this.state.pressRetweet) ? styles.rtGreen : ''}
+            onClick={this.onPressRetweet}
+          >
+            <span className='fa fa-retweet' />
+            <span className={styles.num}> {this.props.numRetweets} </span>
+          </div>
+          <div
+            className={(this.state.pressFavorite) ? styles.favYellow : ''}
+            onClick={this.onPressFavorite}
+          >
+            <span className='fa fa-star' />
+            <span className={styles.num}> {this.props.numFavorites} </span>
+          </div>
         </div>
       </div>
     )
