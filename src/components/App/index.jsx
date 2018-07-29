@@ -4,7 +4,7 @@ import 'normalize-css'
 import Header from '../Header'
 import Main from '../Main'
 
-import styles from './app.css'
+import './app.css'
 
 class App extends Component {
   render () {

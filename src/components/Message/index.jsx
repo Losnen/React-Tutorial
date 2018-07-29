@@ -7,6 +7,7 @@ class Message extends Component {
   constructor (props) {
     super(props)
   }
+
   render () {
     let dateFormat = moment(this.props.date).fromNow()
 
