@@ -2,14 +2,12 @@ import React from 'react'
 
 import styles from './inputText.css'
 
-function InputText () {
+function InputText ({ onSendText, usernameToReply, onCloseText }) {
   return (
-    <form className={styles.form} onSubmit={this.props.onSendText}>
-      <textarea className={styles.text} name='text'>
-        {(this.props.usernameToReply) ? `@${this.props.usernameToReply} ` : ''}
-      </textarea>
+    <form className={styles.form} onSubmit={onSendText}>
+      <textarea className={styles.text} name='text' defaultValue={(usernameToReply) ? `@${usernameToReply} ` : ''} />
       <div className={styles.buttons}>
-        <button className={styles.close}onClick={this.props.onCloseText}>Cerrar</button>
+        <button className={styles.close}onClick={onCloseText}>Cerrar</button>
         <button className={styles.send} type='submit'>Enviar</button>
       </div>
     </form>
