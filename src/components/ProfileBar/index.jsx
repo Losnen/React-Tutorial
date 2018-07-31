@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { Link } from 'react-router-dom'
 
 import styles from './profileBar.css'
+
+const propTypes = {
+  picture: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  onOpenText: PropTypes.func.isRequired
+}
 
 function ProfileBar ({ picture, username, onOpenText }) {
   return (
@@ -18,5 +24,7 @@ function ProfileBar ({ picture, username, onOpenText }) {
     </div>
   )
 }
+
+ProfileBar.propTypes = propTypes
 
 export default ProfileBar

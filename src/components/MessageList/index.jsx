@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
 import Message from '../Message'
 
 import styles from './message-list.css'
+
+const propTypes = {
+  messages: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onRetweet: PropTypes.func.isRequired,
+  onFavorite: PropTypes.func.isRequired,
+  onReplyTweet: PropTypes.func.isRequired
+}
 
 function MessageList ({ messages, onRetweet, onFavorite, onReplyTweet }) {
   return (
@@ -27,5 +34,7 @@ function MessageList ({ messages, onRetweet, onFavorite, onReplyTweet }) {
     </div>
   )
 }
+
+MessageList.propTypes = propTypes
 
 export default MessageList
