@@ -17,7 +17,7 @@ class Main extends Component {
         text: 'Mensaje del Tweet',
         picture: 'https://pbs.twimg.com/profile_images/1005086461232910336/duCR-EIz_bigger.jpg',
         displayName: 'Samuel Ramos',
-        username: 'Losnen',
+        username: 'samuelrb1',
         date: Date.now() - 180000,
         retweets: 0,
         favorites: 0

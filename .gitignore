@@ -74,3 +74,6 @@ typings/
 
 # macOS Files
 .DS_Store
+
+# Build Files
+/build

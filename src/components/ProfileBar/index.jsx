@@ -1,25 +1,22 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 import styles from './profileBar.css'
 
-class ProfileBar extends Component {
-  constructor () {
-    super()
-  }
-
-  render () {
-    return (
-      <div className={styles.root}>
+function ProfileBar ({ picture, username, onOpenText }) {
+  return (
+    <div className={styles.root}>
+      <Link to='/profile'>
         <figure>
-          <img className={styles.avatar} src={this.props.picture} />
+          <img className={styles.avatar} src={picture} />
         </figure>
-        <span className={styles.username}> Hola @{this.props.username} </span>
-        <button className={styles.button} onClick={this.props.onOpenText}>
-          <span className='fa fa-lg fa-edit' /> Tweet
+      </Link>
+      <span className={styles.username}>   Hola @{username} </span>
+      <button className={styles.button} onClick={onOpenText}>
+        <span className='fa fa-lg fa-edit' /> Tweet
         </button>
-      </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default ProfileBar
