@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+
 import 'normalize-css'
 
 import Header from '../Header'
@@ -20,10 +22,26 @@ class App extends Component {
 
   render () {
     return (
-      <div>
-        <Header />
-        <Main user={this.state.user} />
-      </div>
+      <Router>
+        <div>
+          <Header />
+          <Route exact path='/' render={() => {
+            if (this.state.user) {
+              return (
+                <Main user={this.state.user} />
+              )
+            } else {
+              // Render Login
+            }
+          }} />
+          <Route exact path='/profile' render={() => {
+            // Render <Profile />
+          }} />
+          <Route exact path='/user/:username' render={({ params }) => {
+            // Render <Profile /> Pasando params username
+          }} />
+        </div>
+      </Router>
     )
   }
 }
