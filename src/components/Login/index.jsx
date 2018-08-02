@@ -16,7 +16,7 @@ function Login ({ onAuth }) {
         className={styles.login}
         onClick={onAuth}
         >
-        <span className='fa fa-github' /> Login con GitHub
+        <span className='fab fa-github' /> Login con GitHub
       </button>
     </div>
   )

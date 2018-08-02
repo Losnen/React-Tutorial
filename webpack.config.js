@@ -8,7 +8,7 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   },
 
-  entry: ['./src/index.jsx'],
+  entry: ['babel-polyfill', './src/index.jsx'],
   output: {
     filename: 'app.js',
     path: './build',

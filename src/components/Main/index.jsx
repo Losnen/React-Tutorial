@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import firebase from 'firebase'
 import uuid from 'uuid'
 
 import MessageList from '../MessageList'
@@ -6,7 +7,8 @@ import ProfileBar from '../ProfileBar'
 import InputText from '../InputText'
 
 const propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  onLogout: PropTypes.func.isRequired
 }
 
 class Main extends Component {
@@ -16,25 +18,7 @@ class Main extends Component {
       user: Object.assign({}, this.props.user, { retweets: [] }, { favorites: [] }),
       onOpenText: false,
       usernameToReply: '',
-      messages: [{
-        id: uuid.v4(),
-        text: 'Mensaje del Tweet',
-        picture: 'https://pbs.twimg.com/profile_images/1005086461232910336/duCR-EIz_bigger.jpg',
-        displayName: 'Samuel Ramos',
-        username: 'samuelrb1',
-        date: Date.now() - 180000,
-        retweets: 0,
-        favorites: 0
-      }, {
-        id: uuid.v4(),
-        text: 'Este es un nuevo mensaje',
-        picture: 'https://pbs.twimg.com/profile_images/1005086461232910336/duCR-EIz_bigger.jpg',
-        displayName: 'Samuel Ramos',
-        username: 'Losnen',
-        date: Date.now() - 1800000,
-        retweets: 0,
-        favorites: 0
-      }]
+      messages: []
     }
     this.handleSendText = this.handleSendText.bind(this)
     this.handleCloseText = this.handleCloseText.bind(this)
@@ -42,6 +26,17 @@ class Main extends Component {
     this.handleRetweet = this.handleRetweet.bind(this)
     this.handleFavorite = this.handleFavorite.bind(this)
     this.handleReplyTweet = this.handleReplyTweet.bind(this)
+  }
+
+  async componentWillMount () {
+    const messagesRef = firebase.database().ref().child('messages')
+
+    messagesRef.on('child_added', snapshot => {
+      this.setState({
+        messages: this.state.messages.concat(snapshot.val()),
+        onOpenText: false
+      })
+    })
   }
 
   handleSendText (event) {
@@ -57,10 +52,14 @@ class Main extends Component {
       favorites: 0
     }
 
+    const messagesRef = firebase.database().ref().child('messages')
+
+    const messageID = messagesRef.push()
+    messageID.set(newMessage)
+
     this.setState({
-      messages: this.state.messages.concat([newMessage])
+      onOpenText: false
     })
-    this.setState({ onOpenText: false })
   }
 
   handleReplyTweet (msgId, usernameToReply) {
@@ -139,6 +138,7 @@ class Main extends Component {
           picture={this.props.user.photoURL}
           username={this.props.user.email.split('@')[0]}
           onOpenText={this.handleOpenText}
+          onLogout={this.props.onLogout}
         />
         {this.renderOpenText()}
         <MessageList
